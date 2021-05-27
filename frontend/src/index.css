@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-weight: 200;
+
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* -------------estilos reutilizaveis */
+
+.data-form {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  width: 40%;
+  margin: 0 auto;
+
+  background-color: rgb(248, 242, 242);
+
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+.data-form input {
+  width: 95%;
+  height: 2.5rem;
+  padding: 0.3rem 0.55rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid rgb(197, 196, 196);
+  border-radius: 0.25rem;
+}
+
+.data-form span {
+  width: 98.5%;
+  display: flex;
+}
+
+.btn {
+  background: steelblue;
+  color: white;
+
+  display: inline-block;
+
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  border: 1px solid steelblue;
+  border-radius: 0.25rem;
+
+  padding: 0.2rem 0.75rem;
+  margin: 0.5rem;
+}
