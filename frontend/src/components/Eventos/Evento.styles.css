@@ -1,0 +1,46 @@
+.event {
+  width: 100%;
+  height: 5rem;
+  padding: 0.3rem;
+
+  border-bottom: 1px solid rgb(214, 214, 214);
+}
+
+.event-name {
+  width: 15%;
+}
+.event-description {
+  width: 75%;
+  padding: 0.5px;
+}
+
+.event-details div:last-child {
+  margin: 10px;
+}
+
+.event-actions {
+  width: 10%;
+  min-width: 100px;
+  margin: 0.5rem;
+}
+
+.event-actions .btn {
+  width: 2rem;
+  height: 2.4rem;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0px;
+}
+
+.event-actions .btn-edit {
+  border-radius: 0.25rem 0px 0px 0.25rem;
+}
+
+.event-actions .btn-invite {
+  border-radius: 0px 0.25rem 0.25rem 0px;
+}

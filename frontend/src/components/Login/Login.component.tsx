@@ -1,20 +1,17 @@
 import React from "react";
+import { RouteComponentProps } from "@reach/router";
 
-const Login = () => {
+const Login = (props: RouteComponentProps) => {
   return (
-    <div>
+    <div className="data-form">
       <form>
-        <div className="container">
-          <div className="data-form">
-            <h1>Log in</h1>
+        <h1>Log in</h1>
 
-            <input type="email" />
-            <input type="password" />
-            <a href="" className="btn">
-              Log in
-            </a>
-          </div>
-        </div>
+        <input type="email" />
+        <input type="password" />
+        <a href="" className="btn">
+          Log in
+        </a>
       </form>
     </div>
   );

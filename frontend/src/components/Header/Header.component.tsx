@@ -1,17 +1,30 @@
 import React from "react";
 import "./Header.styles.css";
 
+import { Link } from "@reach/router";
+
 const Header = () => {
   return (
     <header className="header">
-      <a href="/">Inicio</a>
+      <Link to="/" title="Início">
+        Início
+      </Link>
       <nav>
         <ul className="nav">
           <li>
-            <a href="/registro">Cadastrar</a>
+            <Link to="/eventos" title="Eventos">
+              Eventos
+            </Link>
           </li>
           <li>
-            <a href="/login">Login</a>
+            <Link to="/cadastro" title="Cadastrar">
+              Cadastro
+            </Link>
+          </li>
+          <li>
+            <Link to="/login" title="Fazer Log in">
+              Log in
+            </Link>
           </li>
         </ul>
       </nav>

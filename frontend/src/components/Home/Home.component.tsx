@@ -1,20 +1,21 @@
 import React from "react";
+import { RouteComponentProps, Link } from "@reach/router";
 
 import "./Home.styles.css";
 
-const Home = () => {
+const Home = (props: RouteComponentProps) => {
   return (
-    <div className=" home">
-      <h1>Controle de eventos</h1>
+    <div className="data-form">
+      <div className=" home">
+        <h1>Controle de eventos</h1>
 
-      <span>
-        <a className="btn" href="/login">
-          Login
-        </a>
-        <a className="btn" href="/registro">
-          Registrar
-        </a>
-      </span>
+        <Link className="btn" to="/login">
+          Log in
+        </Link>
+        <Link className="btn" to="/cadastro">
+          Cadastro
+        </Link>
+      </div>
     </div>
   );
 ***REMOVED***
