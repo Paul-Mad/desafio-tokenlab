@@ -59,11 +59,6 @@ a {
   border-radius: 0.3rem;
 }
 
-.data-form span {
-  width: 98.5%;
-  display: flex;
-}
-
 .btn {
   background: steelblue;
   color: white;

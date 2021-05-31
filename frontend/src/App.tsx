@@ -1,5 +1,5 @@
-import React from "react";
-import { navigate, Router } from "@reach/router";
+import React, { useEffect } from "react";
+import { Router } from "@reach/router";
 
 //Components
 import Header from "./components/Header/Header.component";
@@ -8,7 +8,9 @@ import Login from "./components/Login/Login.component";
 import Cadastro from "./components/Cadastro/Cadastro.component";
 import Eventos from "./components/Eventos/Eventos.component";
 
-function App() {
+const App = (): JSX.Element => {
+  useEffect((): void => {}, []);
+
   return (
     <div className="App">
       <Header />
@@ -20,6 +22,6 @@ function App() {
       </Router>
     </div>
   );
-}
+***REMOVED***
 
 export default App;

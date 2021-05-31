@@ -3,7 +3,7 @@ import { BiEdit, BiTrash, BiMailSend } from "react-icons/bi";
 
 import "./Evento.styles.css";
 
-const Evento = () => (
+const Evento = (): JSX.Element => (
   <div className="event flex-center">
     <div className="event-name" title="Nome  do Evento">
       evento 2
