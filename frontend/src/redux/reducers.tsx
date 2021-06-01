@@ -1,8 +1,6 @@
 import {
   CHANGE_SEARCH,
-  GET_EVENTS_PENDING,
-  GET_EVENTS_FAILURE,
-  GET_EVENTS_SUCCESS,
+  GET_EVENTS,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGOUT_USER,
@@ -12,7 +10,12 @@ import {
   INPUT_CHANGE_ERROR,
 } from "./constants";
 
-const initialStateSearch = { searchField: "" ***REMOVED***
+const initialStateEventInput = {
+  eventInput: "",
+  description: "",
+  initialDate: "",
+  finalDate: "",
+***REMOVED***
 
 interface Action {
   type: string;
@@ -20,14 +23,14 @@ interface Action {
 }
 
 //Atualiza o state com a lista de Eventos pesquisados e enviados pela Action de pesquisa
-export const searchEvents = (
-  state = initialStateSearch,
+export const eventInputChange = (
+  state = initialStateEventInput,
   action: Action
 ): object => {
   switch (action.type) {
     case CHANGE_SEARCH:
       // retorna a copia do state atual mais o campo search com os novos dados da pesquisa, evitando mutabilidade
-      return { ...state, searchField: action.payload ***REMOVED***
+      return { ...state, [action.payload.name]: action.payload.value ***REMOVED***
     default:
       return state;
   }
@@ -40,23 +43,13 @@ const initialStateUser = {
   userID: "",
 ***REMOVED***
 
-//getEvents thunk
-const initialStateEvents = { isPending: false, events: [], error: "" ***REMOVED***
+const initialStateEvents = {***REMOVED***
 
-export const getEvents = (
-  state = initialStateEvents,
-  action: Action
-): object => {
+export const events = (state = initialStateEvents, action: Action): object => {
   switch (action.type) {
-    //atualizao state para pendente (aguardando request)
-    case GET_EVENTS_PENDING:
-      return { ...state, isPending: true ***REMOVED***
-    //request com sucesso, atualiza o state com os eventos
-    case GET_EVENTS_SUCCESS:
-      return { ...state, events: action.payload, isPending: false ***REMOVED***
-    //caso de erro, atualiza o state no campo erro
-    case GET_EVENTS_FAILURE:
-      return { ...state, error: action.payload, isPending: false ***REMOVED***
+    case GET_EVENTS:
+      return { ...state, events: action.payload ***REMOVED***
+
     default:
       return state;
   }

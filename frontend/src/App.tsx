@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Router } from "@reach/router";
 
 import { connect } from "react-redux";
@@ -27,7 +27,6 @@ interface AppState {
 
 const App = (props: AppProps): JSX.Element => {
   const { user, onUserLogout } = props;
-  useEffect((): void => {}, []);
 
   return (
     <div className="App">

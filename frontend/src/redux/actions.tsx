@@ -2,7 +2,7 @@ import {
   CHANGE_SEARCH,
   GET_EVENTS_PENDING,
   GET_EVENTS_FAILURE,
-  GET_EVENTS_SUCCESS,
+  GET_EVENTS,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGOUT_USER,
@@ -15,10 +15,11 @@ import {
 import { store } from "./store";
 
 import firebase from "../utils/firebase";
+import { calcDaysPassed } from "../utils/dates";
 import { navigate } from "@reach/router";
 
 interface Istate {
-  searchEvents: object;
+  eventInputChange: object;
   inputChangeHandler: {
     displayName: string;
     email: string;
@@ -26,23 +27,93 @@ interface Istate {
     passTwo: string;
     errorMessage: string | null;
   ***REMOVED***
+  user: {
+    user: object;
+    displayName: string;
+    userID: string;
+  ***REMOVED***
 }
-//Declara  state apenas para verificação e validação
-const state: Istate | null = store.getState();
 
 //Action de pesquisa de Eventos
-export const setSearchField = (data: string): object => ({
+export const setEventInput = (
+  event: React.MouseEvent<HTMLInputElement>
+): object => ({
   type: CHANGE_SEARCH,
-  payload: data,
+  payload: event.currentTarget,
 });
 
 //Obtem dados dos eventos
-export const getEventsAction = () => async (dispatch: Function) => {
-  try {
-    dispatch({ type: GET_EVENTS_PENDING });
-  } catch (error) {}
+export const getEvents = () => async (dispatch: Function) => {
+  //verifica o usuario logado no app
+  firebase.auth().onAuthStateChanged((FBUser) => {
+    if (FBUser) {
+      //atualizao state como usuario logado
+      dispatch({
+        type: LOGIN_USER_SUCCESS,
+        payload: {
+          user: FBUser,
+          displayName: FBUser.displayName,
+          userID: FBUser.uid,
+        },
+      });
+      // obtem os dados de eventos do usuario logado
+      const eventRef = firebase.database().ref(`events/${FBUser.uid}`);
+
+      eventRef.on("value", (snapshot) => {
+        let events = snapshot.val();
+
+        //cria a lista de eventos
+        const eventList = [];
+        for (let item in events) {
+          eventList.push({
+            eventID: item,
+            eventName: events[item].eventName,
+            description: events[item].description,
+            initialDate: events[item].initialDate,
+            finalDate: events[item].finalDate,
+            days: events[item].days,
+          });
+        }
+
+        //atualiza a lista de eventos no state
+        dispatch({
+          type: GET_EVENTS,
+          payload: eventList,
+        });
+      });
+    } else {
+      dispatch({ type: LOGIN_USER_FAILURE, payload: null });
+    }
+  });
 ***REMOVED***
 
+export const setAddEvent =
+  (
+    event: React.FormEvent<HTMLFormElement>,
+    eventName: string,
+    description: string,
+    initialDate: string,
+    finalDate: string
+  ) =>
+  () => {
+    //Declara  state para saber o usuario
+    const state: Istate | null = store.getState();
+    event.preventDefault();
+    const ref = firebase.database().ref(`events/${state.user.userID}`);
+
+    const newInitialDate = Date.parse(initialDate);
+    const newFinalDate = Date.parse(finalDate);
+
+    ref.push({
+      eventName: eventName,
+      description: description,
+      initialDate: newInitialDate,
+      finalDate: newFinalDate,
+      days: calcDaysPassed(newInitialDate, newFinalDate),
+    });
+  ***REMOVED***
+
+// LOGIN DO USUARIO
 export const setLoginUser =
   (event: React.FormEvent<HTMLFormElement>, email: string, password: string) =>
   (dispatch: Function) => {
@@ -89,30 +160,7 @@ export const setUserLogout =
       });
   ***REMOVED***
 
-//----------------------Cadastro de usuario-----------------------
-
-//altera o state do cadastro
-export const setInputChangeHandler =
-  (event: React.SyntheticEvent<HTMLInputElement>) => (dispatch: Function) => {
-    const itemName = event.currentTarget.name;
-    const itemValue = event.currentTarget.value;
-    state.inputChangeHandler.password !== state.inputChangeHandler.passTwo
-      ? dispatch({
-          type: INPUT_CHANGE_ERROR,
-          payload: "As senhas não são iguais",
-        })
-      : dispatch({
-          type: INPUT_CHANGE_ERROR,
-          payload: null,
-        });
-
-    dispatch({
-      type: INPUT_CHANGE_SUCCESS,
-      payload: { name: itemName, value: itemValue },
-    });
-  ***REMOVED***
-
-// Regista o cadastro do usuario
+// CADASTRO DO USUARIO
 export const setRegNewUser =
   (
     event: React.FormEvent<HTMLFormElement>,
@@ -144,4 +192,27 @@ export const setRegNewUser =
         });
       })
       .catch((error) => alert(error.message));
+  ***REMOVED***
+
+//altera o state do de input dos forms
+export const setInputChangeHandler =
+  (event: React.SyntheticEvent<HTMLInputElement>) => (dispatch: Function) => {
+    //Declara  state apenas para verificação e validação
+    const state: Istate | null = store.getState();
+    const itemName = event.currentTarget.name;
+    const itemValue = event.currentTarget.value;
+    state.inputChangeHandler.password !== state.inputChangeHandler.passTwo
+      ? dispatch({
+          type: INPUT_CHANGE_ERROR,
+          payload: "As senhas não são iguais",
+        })
+      : dispatch({
+          type: INPUT_CHANGE_ERROR,
+          payload: null,
+        });
+
+    dispatch({
+      type: INPUT_CHANGE_SUCCESS,
+      payload: { name: itemName, value: itemValue },
+    });
   ***REMOVED***
