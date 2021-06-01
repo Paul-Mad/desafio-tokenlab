@@ -3,10 +3,11 @@ import {
   GET_EVENTS_PENDING,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
-  AUTH_USER,
-  AUTH_USER_FAILURE,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGOUT_USER,
   REG_NEW_USER_SUCCESS,
-  REG_NEW_USER_FAUILURE,
+  REG_NEW_USER_FAILURE,
   INPUT_CHANGE_SUCCESS,
   INPUT_CHANGE_ERROR,
 } from "./constants";
@@ -21,7 +22,7 @@ interface Istate {
   inputChangeHandler: {
     displayName: string;
     email: string;
-    passOne: string;
+    password: string;
     passTwo: string;
     errorMessage: string | null;
   ***REMOVED***
@@ -42,23 +43,51 @@ export const getEventsAction = () => async (dispatch: Function) => {
   } catch (error) {}
 ***REMOVED***
 
-//  autenticacao do usuario
-export const authUserAction = () => (dispatch: Function) => {
-  firebase.auth().onAuthStateChanged((FBUser) => {
-    if (FBUser) {
-      dispatch({
-        type: AUTH_USER,
-        payload: {
-          user: FBUser,
-          displayName: FBUser.displayName,
-          userID: FBUser.uid,
-        },
+export const setLoginUser =
+  (event: React.FormEvent<HTMLFormElement>, email: string, password: string) =>
+  (dispatch: Function) => {
+    event.preventDefault();
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase.auth().onAuthStateChanged((FBUser) => {
+          if (FBUser) {
+            dispatch({
+              type: LOGIN_USER_SUCCESS,
+              payload: {
+                user: FBUser,
+                displayName: FBUser.displayName,
+                userID: FBUser.uid,
+              },
+            });
+            navigate("/eventos");
+          } else {
+            dispatch({ type: LOGIN_USER_FAILURE, payload: null });
+          }
+        });
+      })
+      .catch((error) => (error.message != null ? alert(error.message) : ""));
+  ***REMOVED***
+
+// desloga o usuario
+export const setUserLogout =
+  (event: React.FormEvent<HTMLFormElement>) => (dispatch: Function) => {
+    event.preventDefault();
+    //limpa os campos do state de usuario
+    dispatch({
+      type: LOGOUT_USER,
+      payload: null,
+    });
+
+    //log out do usuario
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigate("/");
       });
-    } else {
-      dispatch({ type: AUTH_USER_FAILURE, payload: null });
-    }
-  });
-***REMOVED***
+  ***REMOVED***
 
 //----------------------Cadastro de usuario-----------------------
 
@@ -67,7 +96,7 @@ export const setInputChangeHandler =
   (event: React.SyntheticEvent<HTMLInputElement>) => (dispatch: Function) => {
     const itemName = event.currentTarget.name;
     const itemValue = event.currentTarget.value;
-    state.inputChangeHandler.passOne !== state.inputChangeHandler.passTwo
+    state.inputChangeHandler.password !== state.inputChangeHandler.passTwo
       ? dispatch({
           type: INPUT_CHANGE_ERROR,
           payload: "As senhas não são iguais",

@@ -3,10 +3,11 @@ import {
   GET_EVENTS_PENDING,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
-  AUTH_USER,
-  AUTH_USER_FAILURE,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGOUT_USER,
   REG_NEW_USER_SUCCESS,
-  REG_NEW_USER_FAUILURE,
+  REG_NEW_USER_FAILURE,
   INPUT_CHANGE_SUCCESS,
   INPUT_CHANGE_ERROR,
 } from "./constants";
@@ -38,24 +39,6 @@ const initialStateUser = {
   displayName: "",
   userID: "",
 ***REMOVED***
-export const authUser = (state = initialStateUser, action: Action) => {
-  switch (action.type) {
-    //caso tenha usuario logado, retorna para o state os dados do usuario
-    case AUTH_USER:
-      return {
-        ...state,
-        user: action.payload.user,
-        name: action.payload.displayName,
-        userId: action.payload.userID,
-      ***REMOVED***
-    //caso nao possua usuario logado retora null para o state
-    case AUTH_USER_FAILURE:
-      return { ...state, user: action.payload ***REMOVED***
-
-    default:
-      return state;
-  }
-***REMOVED***
 
 //getEvents thunk
 const initialStateEvents = { isPending: false, events: [], error: "" ***REMOVED***
@@ -81,17 +64,17 @@ export const getEvents = (
 
 //-------------------------Cadastro usuario-------------------
 
-const initialStateReg = {
+const initialStateInput = {
   displayName: "",
   email: "",
-  passOne: "",
+  password: "",
   passTwo: "",
   errorMessage: null,
 ***REMOVED***
 
 //Altera o state dos inputs
 export const inputChangeHandler = (
-  state = initialStateReg,
+  state = initialStateInput,
   action: Action
 ): object => {
   switch (action.type) {
@@ -104,7 +87,7 @@ export const inputChangeHandler = (
   }
 ***REMOVED***
 
-//Registra o cadastro do usuario
+//autentica o  usuario
 export const user = (state = initialStateUser, action: Action): object => {
   switch (action.type) {
     case REG_NEW_USER_SUCCESS:
@@ -114,7 +97,25 @@ export const user = (state = initialStateUser, action: Action): object => {
         displayName: action.payload.displayName,
         userID: action.payload.userID,
       ***REMOVED***
+    //caso tenha usuario logado, retorna para o state os dados do usuario
+    case LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        displayName: action.payload.displayName,
+        userID: action.payload.userID,
+      ***REMOVED***
+    //caso nao possua usuario logado retora null para o state
+    case LOGIN_USER_FAILURE:
+      return { ...state, user: action.payload ***REMOVED***
 
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null,
+        displayName: null,
+        userID: null,
+      ***REMOVED***
     default:
       return state;
   }

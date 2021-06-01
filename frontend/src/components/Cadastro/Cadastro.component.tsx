@@ -9,7 +9,7 @@ import "./Cadastro.styles.css";
 interface CadProps {
   displayName: string;
   email: string;
-  passOne: string;
+  password: string;
   passTwo: string;
   errorMessage: any;
   path: RouteComponentProps;
@@ -21,7 +21,7 @@ interface CadState {
   inputChangeHandler: {
     displayName: string;
     email: string;
-    passOne: string;
+    password: string;
     passTwo: string;
     errorMessage: string | null;
   ***REMOVED***
@@ -31,7 +31,7 @@ const Cadastro = (props: CadProps) => {
   const {
     displayName,
     email,
-    passOne,
+    password,
     passTwo,
     errorMessage,
     onInputChangeHandler,
@@ -71,8 +71,8 @@ const Cadastro = (props: CadProps) => {
         <div className="password">
           <input
             type="password"
-            name="passOne"
-            value={passOne}
+            name="password"
+            value={password}
             onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
               onInputChangeHandler(event)
             }
@@ -101,7 +101,7 @@ const mapStateToProps = (state: CadState) => {
   return {
     displayName: state.inputChangeHandler.displayName,
     email: state.inputChangeHandler.email,
-    passOne: state.inputChangeHandler.passOne,
+    password: state.inputChangeHandler.password,
     passTwo: state.inputChangeHandler.passTwo,
     errorMessage: state.inputChangeHandler.errorMessage,
   ***REMOVED***
