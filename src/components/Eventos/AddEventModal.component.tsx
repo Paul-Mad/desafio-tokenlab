@@ -1,6 +1,5 @@
 import React from "react";
 import "./Eventos.styles.css";
-import { inputDateString } from "../../utils/dates";
 
 interface EventosProps {
   props: {
