@@ -106,6 +106,7 @@ export const getEvents = () => async (dispatch: Function) => {
   firebase.auth().onAuthStateChanged((FBUser) => {
     if (FBUser) {
       //atualizao state como usuario logado
+      console.log(FBUser);
       dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: {

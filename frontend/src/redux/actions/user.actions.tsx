@@ -36,6 +36,23 @@ export const setLoginUser =
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        //registra o nome de usuario ao usuario criado
+        firebase.auth().onAuthStateChanged((FBUser: any) => {
+          dispatch({
+            type: LOGIN_USER_SUCCESS,
+            payload: {
+              user: FBUser,
+              displayName: FBUser.displayName,
+              userID: FBUser.uid,
+            },
+          });
+          //limpa os campos do state
+          dispatch({ type: USER_INPUT_CHANGE_CLEAN });
+          //navega para a pagina de eventos
+          navigate("/eventos");
+        });
+        //limpa os campos do state
+        dispatch({ type: USER_INPUT_CHANGE_CLEAN });
         navigate("/eventos");
       })
       .catch(() => alert("Usuário ou senha inválidos"));
