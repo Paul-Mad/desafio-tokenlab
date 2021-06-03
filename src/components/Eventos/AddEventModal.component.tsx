@@ -1,5 +1,6 @@
 import React from "react";
 import "./Eventos.styles.css";
+import { inputDateString } from "../../utils/dates";
 
 interface EventosProps {
   props: {
@@ -28,6 +29,7 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
     onAddEvent,
     onEventInputClean,
   } = props.props;
+
   return (
     <div className={`data-form event-form modal ${addmodal ? "" : "hidden"}`}>
       <button
@@ -59,6 +61,8 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
             type="date"
             title="Data Inicial"
             name="initialDate"
+            min="2021-06-03"
+            max="2050-01-01"
             value={initialDate}
             onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
               onInputChange(event)
@@ -70,6 +74,8 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
             type="date"
             title="Data Final"
             name="finalDate"
+            min="2021-06-03"
+            max="2050-01-01"
             value={finalDate}
             onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
               onInputChange(event)
@@ -86,6 +92,8 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
               alert("Digite o nome do evento");
             } else if (initialDate === "" || finalDate === "") {
               alert("As datas devem ser selecionadas");
+            } else if (initialDate > finalDate) {
+              alert("A data inicial não pode ser maior que a final");
             } else {
               onAddEvent(
                 event,
