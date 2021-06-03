@@ -66,7 +66,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
   //obtem os eventos sempre que o component
   useEffect((): void => {
     onGetEvents();
-  }, []);
+  }, [onGetEvents]);
 
   //Abre e fecha a modal de criar evento
   const toggleAddModal = (e: React.MouseEvent) => {
