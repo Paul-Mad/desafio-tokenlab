@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .event-container {
   width: 70%;
   margin: 0 auto;
@@ -12,6 +19,8 @@
 }
 
 .add-event-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -55,11 +64,16 @@
   top: 50%;
   left: 50%;
   width: 90%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: 40rem;
   padding: 5rem 1rem 1rem 1rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
   transition: all 0.5s;
 }
 
