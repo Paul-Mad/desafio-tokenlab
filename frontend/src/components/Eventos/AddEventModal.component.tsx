@@ -11,6 +11,7 @@ interface EventosProps {
     addmodal: boolean;
     toggleAddModal: Function;
     onInputChange: Function;
+    onEventInputClean: Function;
     onAddEvent: Function;
   ***REMOVED***
 }
@@ -25,12 +26,14 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
     toggleAddModal,
     onInputChange,
     onAddEvent,
+    onEventInputClean,
   } = props.props;
   return (
     <div className={`data-form event-form modal ${addmodal ? "" : "hidden"}`}>
       <button
         className="btn--close-modal"
         onClick={(e: React.MouseEvent) => {
+          onEventInputClean();
           toggleAddModal(e);
         }}
       >

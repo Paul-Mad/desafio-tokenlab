@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import {
   setEventInput,
   setEventEditInputs,
+  setEventInputClean,
 } from "../../redux/actions/input.actions";
 import {
   setAddEvent,
@@ -27,6 +28,7 @@ interface EventosProps {
   path: RouteComponentProps;
   onInputChange: Function;
   onEventEditInputs: Function;
+  onEventInputClean: Function;
   onAddEvent: Function;
   onEditEvent: Function;
   onGetEvents: Function;
@@ -55,6 +57,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
     events,
     onInputChange,
     onEventEditInputs,
+    onEventInputClean,
     onEditEvent,
     onGetEvents,
     onRemoveEvent,
@@ -99,6 +102,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
             title="Pesquisar ou adicionar evento"
             name="eventInput"
             value={eventInput}
+            placeholder="Evento"
             onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
               onInputChange(event)
             }
@@ -114,7 +118,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
               } else if (
                 events.find((item: any) => item.eventName === eventInput)
               ) {
-                alert(`Evento: ${eventInput} já existe`);
+                alert(` "${eventInput}" já existe`);
               } else {
                 toggleAddModal(e);
               }
@@ -125,7 +129,9 @@ const Eventos = (props: EventosProps): JSX.Element => {
         </form>
       </div>
       {/* todos os props do componente Evento são enviados para os componentes Modal, até mesmo os que não são usados aqui */}
-      <AddEventModal props={{ ...props, addmodal, toggleAddModal }} />
+      <AddEventModal
+        props={{ ...props, addmodal, toggleAddModal, onEventInputClean }}
+      />
       <EditEventModal
         props={{
           ...props,
@@ -133,6 +139,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
           toggleEditModal,
           eventEditId,
           onEditEvent,
+          onEventInputClean,
         }}
       />
       <div className="event-list-container flex-center">
@@ -171,6 +178,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onInputChange: (event: React.MouseEvent<HTMLInputElement>) =>
       dispatch(setEventInput(event)),
+    onEventInputClean: () => dispatch(setEventInputClean()),
     onEventEditInputs: (evento: object) => dispatch(setEventEditInputs(evento)),
     onAddEvent: (
       event: React.MouseEvent<HTMLFormElement>,

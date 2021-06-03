@@ -13,6 +13,7 @@ interface EventosProps {
     toggleEditModal: Function;
     onInputChange: Function;
     onEditEvent: Function;
+    onEventInputClean: Function;
   ***REMOVED***
 }
 
@@ -28,6 +29,7 @@ const EditEventModal = (props: EventosProps): JSX.Element => {
     toggleEditModal,
     onInputChange,
     onEditEvent,
+    onEventInputClean,
   } = props.props;
 
   return (
@@ -35,6 +37,7 @@ const EditEventModal = (props: EventosProps): JSX.Element => {
       <button
         className="btn--close-modal"
         onClick={(e: React.MouseEvent) => {
+          onEventInputClean();
           toggleEditModal(e);
         }}
       >

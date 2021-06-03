@@ -1,8 +1,8 @@
 import {
   EVENT_INPUT_CHANGE,
+  EVENT_INPUT_CLEAN,
   EVENT_INPUT_CHANGE_TO_EDIT,
   USER_INPUT_CHANGE_SUCCESS,
-  USER_INPUT_CHANGE_CLEAN,
   USER_INPUT_CHANGE_ERROR,
 } from "../constants";
 
@@ -27,6 +27,8 @@ interface Istate {
 //------------------------------------------ATUALIZA CAMPOS DE INPUT NO STATE
 
 //Action de INPUTS de Eventos-------------------
+
+export const setEventInputClean = () => ({ type: EVENT_INPUT_CLEAN });
 export const setEventInput = (
   event: React.MouseEvent<HTMLInputElement>
 ): object => ({
