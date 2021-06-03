@@ -9,6 +9,7 @@ import { store } from "../store";
 
 import firebase from "../../utils/firebase";
 import { calcDaysPassed } from "../../utils/dates";
+import { navigate } from "@reach/router";
 
 interface Istate {
   eventInputChange: object;
@@ -141,6 +142,7 @@ export const getEvents = () => async (dispatch: Function) => {
       });
     } else {
       dispatch({ type: LOGIN_USER_FAILURE, payload: null });
+      navigate("/");
     }
   });
 ***REMOVED***
