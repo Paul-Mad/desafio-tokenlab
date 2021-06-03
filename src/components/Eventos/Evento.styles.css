@@ -5,9 +5,14 @@
   border-bottom: 1px solid rgb(214, 214, 214);
 }
 
+.event:last-child {
+  border-radius: 0.25rem;
+}
+
 .event-name {
   width: 15%;
   padding: 0 1rem;
+  font-weight: 500;
 }
 .event-description {
   word-wrap: break-word;

@@ -12,7 +12,7 @@ const Header = ({ user, onUserLogout }: headerProps) => {
   return (
     <header className="header">
       {!user ? (
-        <Link to="/" title="Início">
+        <Link to="/" title="Início" className="start">
           Início
         </Link>
       ) : (

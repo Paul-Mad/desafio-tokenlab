@@ -11,6 +11,9 @@ import Login from "./components/Login/Login.component";
 import Cadastro from "./components/Cadastro/Cadastro.component";
 import Eventos from "./components/Eventos/Eventos.component";
 
+//CSS queries
+import "./queries.css";
+
 interface AppProps {
   user: object;
   displayName: string;
