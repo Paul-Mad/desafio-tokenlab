@@ -2,7 +2,7 @@ import React from "react";
 import { Router } from "@reach/router";
 
 import { connect } from "react-redux";
-import { setUserLogout } from "./redux/actions";
+import { setUserLogout } from "./redux/actions/user.actions";
 
 //Components
 import Header from "./components/Header/Header.component";

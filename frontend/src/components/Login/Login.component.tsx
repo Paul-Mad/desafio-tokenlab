@@ -1,7 +1,9 @@
 import React from "react";
 import { RouteComponentProps } from "@reach/router";
 import { connect } from "react-redux";
-import { setInputChangeHandler, setLoginUser } from "../../redux/actions";
+import { setLoginUser } from "../../redux/actions/user.actions";
+
+import { setInputChangeHandler } from "../../redux/actions/input.actions";
 
 interface LoginProps {
   email: string;
@@ -11,7 +13,7 @@ interface LoginProps {
   onLoginUser: Function;
 }
 interface UserState {
-  inputChangeHandler: {
+  userInputChangeHandler: {
     email: string;
     password: string;
   ***REMOVED***
@@ -67,8 +69,8 @@ const mapDispatchToProps = (dispatch: Function) => {
 //Envia o state como props para o component
 const mapStateToProps = (state: UserState) => {
   return {
-    email: state.inputChangeHandler.email,
-    password: state.inputChangeHandler.password,
+    email: state.userInputChangeHandler.email,
+    password: state.userInputChangeHandler.password,
   ***REMOVED***
 ***REMOVED***
 

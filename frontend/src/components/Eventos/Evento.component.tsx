@@ -12,11 +12,23 @@ interface eventProps {
     finalDate: number;
     days: number;
   ***REMOVED***
+  onRemoveEvent: Function;
+  toggleEditModal: Function;
+  setEventEditId: Function;
+  eventToEdit: Function;
 }
 
-const Evento = ({ evento }: eventProps): JSX.Element => {
-  const { eventName, description, initialDate, finalDate, days } = evento;
+const Evento = ({
+  evento,
+  onRemoveEvent,
+  toggleEditModal,
+  setEventEditId,
+  eventToEdit,
+}: eventProps): JSX.Element => {
+  const { eventName, eventID, description, initialDate, finalDate, days } =
+    evento;
 
+  //converte as datas de milisegundos para a datalocal
   const formatedInitialdate = new Date(initialDate).toLocaleDateString(
     "pt-BR",
     {
@@ -34,7 +46,7 @@ const Evento = ({ evento }: eventProps): JSX.Element => {
         {eventName}
       </div>
       <div className="event-description" title="Descrição">
-        {description}
+        <p>{description}</p>
       </div>
       <div className="event-details flex-center" title="Detalhes">
         <div>Início: {formatedInitialdate}</div>
@@ -42,10 +54,22 @@ const Evento = ({ evento }: eventProps): JSX.Element => {
         <div> {days > 1 ? `${days} dias` : `${days} dia`}</div>
       </div>
       <div className="event-actions flex-center">
-        <button className="btn btn-edit" title="Editar">
+        <button
+          className="btn btn-edit"
+          title="Editar"
+          onClick={() => {
+            eventToEdit(evento);
+            setEventEditId(eventID);
+            toggleEditModal();
+          }}
+        >
           <BiEdit />
         </button>
-        <button className="btn btn-remove" title="Remover">
+        <button
+          className="btn btn-remove"
+          title="Remover"
+          onClick={() => onRemoveEvent(eventID)}
+        >
           <BiTrash />
         </button>
         <button className="btn btn-invite" title="Convidar">

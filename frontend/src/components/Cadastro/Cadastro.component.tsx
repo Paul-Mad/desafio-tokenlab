@@ -3,7 +3,10 @@ import { RouteComponentProps } from "@reach/router";
 
 import { connect } from "react-redux";
 
-import { setInputChangeHandler, setRegNewUser } from "../../redux/actions";
+import { setRegNewUser } from "../../redux/actions/user.actions";
+
+import { setInputChangeHandler } from "../../redux/actions/input.actions";
+
 import "./Cadastro.styles.css";
 
 interface CadProps {
@@ -18,7 +21,7 @@ interface CadProps {
 }
 interface CadState {
   searchEvents: object;
-  inputChangeHandler: {
+  userInputChangeHandler: {
     displayName: string;
     email: string;
     password: string;
@@ -68,6 +71,13 @@ const Cadastro = (props: CadProps) => {
             required
           />
         </div>
+        <label
+          className={`password-not-match ${
+            errorMessage === null ? "hidden" : ""
+          }`}
+        >
+          Senhas diferentes
+        </label>
         <div className="password">
           <input
             type="password"
@@ -79,6 +89,7 @@ const Cadastro = (props: CadProps) => {
             placeholder="Senha"
             required
           />
+
           <input
             type="password"
             name="passTwo"
@@ -99,11 +110,11 @@ const Cadastro = (props: CadProps) => {
 //Envia o state como props para o component
 const mapStateToProps = (state: CadState) => {
   return {
-    displayName: state.inputChangeHandler.displayName,
-    email: state.inputChangeHandler.email,
-    password: state.inputChangeHandler.password,
-    passTwo: state.inputChangeHandler.passTwo,
-    errorMessage: state.inputChangeHandler.errorMessage,
+    displayName: state.userInputChangeHandler.displayName,
+    email: state.userInputChangeHandler.email,
+    password: state.userInputChangeHandler.password,
+    passTwo: state.userInputChangeHandler.passTwo,
+    errorMessage: state.userInputChangeHandler.errorMessage,
   ***REMOVED***
 ***REMOVED***
 

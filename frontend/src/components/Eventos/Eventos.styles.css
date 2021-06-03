@@ -69,6 +69,7 @@
   visibility: hidden;
   opacity: 0;
 }
+
 .btn--close-modal {
   color: steelblue;
   position: absolute;

@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import Evento from "./Evento.component";
+import AddEventModal from "./AddEventModal.component";
+import EditEventModal from "./EditEventModal.component";
 import "./Eventos.styles.css";
 
 //redux
 import { connect } from "react-redux";
-import { setEventInput, setAddEvent, getEvents } from "../../redux/actions";
+import {
+  setEventInput,
+  setEventEditInputs,
+} from "../../redux/actions/input.actions";
+import {
+  setAddEvent,
+  setEditEvent,
+  setRemoveEvent,
+  getEvents,
+} from "../../redux/actions/event.actions";
 
 interface EventosProps {
   eventInput: string;
@@ -15,8 +26,11 @@ interface EventosProps {
   events: Array<object>;
   path: RouteComponentProps;
   onInputChange: Function;
+  onEventEditInputs: Function;
   onAddEvent: Function;
+  onEditEvent: Function;
   onGetEvents: Function;
+  onRemoveEvent: Function;
 }
 
 interface EventosState {
@@ -30,31 +44,49 @@ interface EventosState {
 }
 
 const Eventos = (props: EventosProps): JSX.Element => {
-  const [modal, setModal] = useState(false);
+  const [addmodal, setAddModal] = useState(false);
+  const [editmodal, setEditModal] = useState(false);
+
+  const [eventEditId, setEventEditId] = useState("");
+
   //destructuring dos props
   const {
     eventInput,
-    description,
-    initialDate,
-    finalDate,
     events,
     onInputChange,
-    onAddEvent,
+    onEventEditInputs,
+    onEditEvent,
     onGetEvents,
+    onRemoveEvent,
   } = props;
 
+  //obtem os eventos sempre que o component
   useEffect((): void => {
     onGetEvents();
   }, []);
-  // //filtra apenas os itens que contem o nome com os valores digitados
-  // const searchFilter = (item: any) =>
-  //   item.name.toLowerCase().match(eventInput.toLowerCase()) && true;
 
-  // const filteredEvents: Array<Events> = events.filter(searchFilter)
-
-  const toggleModal = (e: React.MouseEvent) => {
+  //Abre e fecha a modal de criar evento
+  const toggleAddModal = (e: React.MouseEvent) => {
     e.preventDefault();
-    setModal(!modal);
+    setAddModal(!addmodal);
+  ***REMOVED***
+
+  //Abre e fecha a modal de criar evento
+  const toggleEditModal = () => {
+    setEditModal(!editmodal);
+  ***REMOVED***
+
+  //filtra a lista de eventos recebidos para a pesquisa
+  const eventFilter = (evento: any) =>
+    evento.eventName?.toLowerCase().match(eventInput?.toLowerCase()) && true;
+
+  //recebe os eventos filtrados no input para serem listados
+  const filteredEvents = events?.filter(eventFilter);
+
+  //recebe o evento para ser editado
+
+  const eventToEdit = (evento: any) => {
+    onEventEditInputs(evento);
   ***REMOVED***
 
   return (
@@ -66,6 +98,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
             type="search"
             title="Pesquisar ou adicionar evento"
             name="eventInput"
+            value={eventInput}
             onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
               onInputChange(event)
             }
@@ -75,78 +108,45 @@ const Eventos = (props: EventosProps): JSX.Element => {
             className="btn"
             title="Adicionar"
             onClick={(e: React.MouseEvent) => {
-              eventInput === ""
-                ? alert("Digite o nome do evento")
-                : toggleModal(e);
+              e.preventDefault();
+              if (eventInput === "") {
+                alert("Digite o nome do evento");
+              } else if (
+                events.find((item: any) => item.eventName === eventInput)
+              ) {
+                alert(`Evento: ${eventInput} já existe`);
+              } else {
+                toggleAddModal(e);
+              }
             }}
           >
             +
           </button>
         </form>
       </div>
-      <div className={`data-form event-form modal ${modal ? "" : "hidden"}`}>
-        <button className="btn--close-modal" onClick={toggleModal}>
-          &times;
-        </button>
-
-        <form>
-          <label>Descrição</label>
-          <textarea
-            title="Descrição"
-            name="description"
-            onChange={(event: React.SyntheticEvent<HTMLTextAreaElement>) =>
-              onInputChange(event)
-            }
-          />
-
-          <div>
-            <label>Data Inicial</label>
-            <input
-              type="date"
-              title="Data Inicial"
-              name="initialDate"
-              onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
-                onInputChange(event)
-              }
-              required
-            />
-            <label>Data Final</label>
-            <input
-              type="date"
-              title="Data Final"
-              name="finalDate"
-              onChange={(event: React.SyntheticEvent<HTMLInputElement>) =>
-                onInputChange(event)
-              }
-              required
-            />
-          </div>
-          <button
-            className="btn"
-            onClick={(event: React.MouseEvent) => {
-              if (eventInput === "") {
-                alert("Digite o nome do evento");
-              } else {
-                onAddEvent(
-                  event,
-                  eventInput,
-                  description,
-                  initialDate,
-                  finalDate
-                );
-                toggleModal(event);
-              }
-            }}
-          >
-            Criar Evento
-          </button>
-        </form>
-      </div>
+      {/* todos os props do componente Evento são enviados para os componentes Modal, até mesmo os que não são usados aqui */}
+      <AddEventModal props={{ ...props, addmodal, toggleAddModal }} />
+      <EditEventModal
+        props={{
+          ...props,
+          editmodal,
+          toggleEditModal,
+          eventEditId,
+          onEditEvent,
+        }}
+      />
       <div className="event-list-container flex-center">
         <div className="events-content">
           <div className="event-list"></div>
-          {events?.map((evento: any) => (
-            <Evento evento={evento} key={evento.eventID} />
+          {filteredEvents?.map((evento: any) => (
+            <Evento
+              evento={evento}
+              onRemoveEvent={onRemoveEvent}
+              toggleEditModal={toggleEditModal}
+              setEventEditId={setEventEditId}
+              eventToEdit={eventToEdit}
+              key={evento.eventID}
+            />
           ))}
         </div>
       </div>
@@ -171,6 +171,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onInputChange: (event: React.MouseEvent<HTMLInputElement>) =>
       dispatch(setEventInput(event)),
+    onEventEditInputs: (evento: object) => dispatch(setEventEditInputs(evento)),
     onAddEvent: (
       event: React.MouseEvent<HTMLFormElement>,
       eventInput: string,
@@ -181,7 +182,27 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(
         setAddEvent(event, eventInput, description, initialDate, finalDate)
       ),
+    onEditEvent: (
+      event: React.MouseEvent<HTMLFormElement>,
+      eventEditId: string,
+      eventInput: string,
+      description: string,
+      initialDate: string,
+      finalDate: string
+    ) =>
+      dispatch(
+        setEditEvent(
+          event,
+          eventEditId,
+          eventInput,
+          description,
+          initialDate,
+          finalDate
+        )
+      ),
+
     onGetEvents: () => dispatch(getEvents()),
+    onRemoveEvent: (eventID: string) => dispatch(setRemoveEvent(eventID)),
   ***REMOVED***
 ***REMOVED***
 
