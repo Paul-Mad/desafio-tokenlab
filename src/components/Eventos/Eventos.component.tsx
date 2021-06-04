@@ -41,8 +41,8 @@ interface EventosState {
     description: string;
     initialDate: string;
     finalDate: string;
-  ***REMOVED***
-  events: { events: Array<object> ***REMOVED***
+  };
+  events: { events: Array<object> };
 }
 
 const Eventos = (props: EventosProps): JSX.Element => {
@@ -72,12 +72,12 @@ const Eventos = (props: EventosProps): JSX.Element => {
   const toggleAddModal = (e: React.MouseEvent) => {
     e.preventDefault();
     setAddModal(!addmodal);
-  ***REMOVED***
+  };
 
   //Abre e fecha a modal de criar evento
   const toggleEditModal = () => {
     setEditModal(!editmodal);
-  ***REMOVED***
+  };
 
   //filtra a lista de eventos recebidos para a pesquisa
   const eventFilter = (evento: any) =>
@@ -90,7 +90,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
 
   const eventToEdit = (evento: any) => {
     onEventEditInputs(evento);
-  ***REMOVED***
+  };
 
   return (
     <div className="event-container">
@@ -159,7 +159,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 //repassa o state para o componente
 const mapStateToProps = (state: EventosState) => {
@@ -169,8 +169,8 @@ const mapStateToProps = (state: EventosState) => {
     initialDate: state.eventInputChange.initialDate,
     finalDate: state.eventInputChange.finalDate,
     events: state.events.events,
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 //repassa o o dispatch das actions para o componente
 //
@@ -211,7 +211,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
     onGetEvents: () => dispatch(getEvents()),
     onRemoveEvent: (eventID: string) => dispatch(setRemoveEvent(eventID)),
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Eventos);

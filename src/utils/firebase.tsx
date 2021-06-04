@@ -2,15 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firebase-database";
 import "firebase/auth";
 
-***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-  ***REMOVED***
-***REMOVED***
+const config = {
+};
 
 // Initialize Firebase
 firebase.initializeApp(config);

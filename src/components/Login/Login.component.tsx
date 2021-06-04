@@ -16,7 +16,7 @@ interface UserState {
   userInputChangeHandler: {
     email: string;
     password: string;
-  ***REMOVED***
+  };
 }
 const Login = (props: LoginProps) => {
   const { email, password, onInputChangeHandler, onLoginUser } = props;
@@ -52,7 +52,7 @@ const Login = (props: LoginProps) => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 //Envia as actions como props  para o component
 const mapDispatchToProps = (dispatch: Function) => {
@@ -64,14 +64,14 @@ const mapDispatchToProps = (dispatch: Function) => {
       email: string,
       password: string
     ) => dispatch(setLoginUser(event, email, password)),
-  ***REMOVED***
-***REMOVED***
+  };
+};
 //Envia o state como props para o component
 const mapStateToProps = (state: UserState) => {
   return {
     email: state.userInputChangeHandler.email,
     password: state.userInputChangeHandler.password,
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

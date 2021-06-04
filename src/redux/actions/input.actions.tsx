@@ -16,12 +16,12 @@ interface Istate {
     password: string;
     passTwo: string;
     errorMessage: string | null;
-  ***REMOVED***
+  };
   user: {
     user: object;
     displayName: string;
     userID: string;
-  ***REMOVED***
+  };
 }
 
 //------------------------------------------ATUALIZA CAMPOS DE INPUT NO STATE
@@ -64,4 +64,4 @@ export const setInputChangeHandler =
           type: USER_INPUT_CHANGE_ERROR,
           payload: null,
         });
-  ***REMOVED***
+  };

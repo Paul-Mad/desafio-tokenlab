@@ -14,7 +14,7 @@ interface EventosProps {
     onInputChange: Function;
     onEditEvent: Function;
     onEventInputClean: Function;
-  ***REMOVED***
+  };
 }
 
 const EditEventModal = (props: EventosProps): JSX.Element => {
@@ -132,6 +132,6 @@ const EditEventModal = (props: EventosProps): JSX.Element => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 export default EditEventModal;

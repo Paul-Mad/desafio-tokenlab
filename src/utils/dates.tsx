@@ -7,4 +7,4 @@ export const inputDateString = (inputDate: number) => {
   return [date.getFullYear(), date.getUTCMonth() + 1, date.getUTCDate()]
     .map((d) => (d < 10 ? "0" + d : d))
     .join("-");
-***REMOVED***
+};

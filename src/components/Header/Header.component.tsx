@@ -56,6 +56,6 @@ const Header = ({ user, onUserLogout }: headerProps) => {
       </nav>
     </header>
   );
-***REMOVED***
+};
 
 export default Header;

@@ -19,14 +19,14 @@ interface Istate {
     password: string;
     passTwo: string;
     errorMessage: string | null;
-  ***REMOVED***
+  };
   events: any;
 
   user: {
     user: object;
     displayName: string;
     userID: string;
-  ***REMOVED***
+  };
 }
 
 //---------------------------------------------- EVENTOS--------------------------------------------------
@@ -57,7 +57,7 @@ export const setAddEvent =
       days: calcDaysPassed(newInitialDate, newFinalDate),
     });
     dispatch({ type: EVENT_INPUT_CLEAN });
-  ***REMOVED***
+  };
 
 //EDITAR EVENTO-------------------
 export const setEditEvent =
@@ -90,7 +90,7 @@ export const setEditEvent =
       days: calcDaysPassed(newInitialDate, newFinalDate),
     });
     dispatch({ type: EVENT_INPUT_CLEAN });
-  ***REMOVED***
+  };
 
 //REMOVE EVENTO-------------------
 export const setRemoveEvent = (eventID: string) => () => {
@@ -99,7 +99,7 @@ export const setRemoveEvent = (eventID: string) => () => {
   //obtem a ref do evendo passando o uid do usuario e o id do evento
   const ref = firebase.database().ref(`events/${state.user.userID}/${eventID}`);
   ref.remove();
-***REMOVED***
+};
 
 //OBTEM EVENTOS DO DATABASE-------------------
 export const getEvents = () => async (dispatch: Function) => {
@@ -145,4 +145,4 @@ export const getEvents = () => async (dispatch: Function) => {
       navigate("/");
     }
   });
-***REMOVED***
+};

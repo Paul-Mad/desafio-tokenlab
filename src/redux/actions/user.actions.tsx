@@ -17,12 +17,12 @@ interface Istate {
     password: string;
     passTwo: string;
     errorMessage: string | null;
-  ***REMOVED***
+  };
   user: {
     user: object;
     displayName: string;
     userID: string;
-  ***REMOVED***
+  };
 }
 
 // -------------------------------------------------- AUTENTICÃO DO USUÁRIO -----------------------------------
@@ -56,7 +56,7 @@ export const setLoginUser =
         navigate("/eventos");
       })
       .catch(() => alert("Usuário ou senha inválidos"));
-  ***REMOVED***
+  };
 
 // LOG OUT do USUARIO-------------------
 export const setUserLogout =
@@ -75,7 +75,7 @@ export const setUserLogout =
       .then(() => {
         navigate("/");
       });
-  ***REMOVED***
+  };
 
 // CADASTRO DO USUARIO-------------------
 export const setRegNewUser =
@@ -118,4 +118,4 @@ export const setRegNewUser =
         })
         .catch((error) => alert(error.message));
     }
-  ***REMOVED***
+  };

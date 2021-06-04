@@ -17,7 +17,7 @@ const initialStateEventInput = {
   description: "",
   initialDate: "",
   finalDate: "",
-***REMOVED***
+};
 
 interface Action {
   type: string;
@@ -32,7 +32,7 @@ export const eventInputChange = (
   switch (action.type) {
     case EVENT_INPUT_CHANGE:
       // retorna a copia do state atual mais o campo search com os novos dados da pesquisa, evitando mutabilidade
-      return { ...state, [action.payload.name]: action.payload.value ***REMOVED***
+      return { ...state, [action.payload.name]: action.payload.value };
     case EVENT_INPUT_CLEAN:
       //limpa os campos do input
       return {
@@ -41,7 +41,7 @@ export const eventInputChange = (
         description: "",
         initialDate: "",
         finalDate: "",
-      ***REMOVED***
+      };
     case EVENT_INPUT_CHANGE_TO_EDIT:
       return {
         ...state,
@@ -49,30 +49,30 @@ export const eventInputChange = (
         description: action.payload.description,
         initialDate: inputDateString(action.payload.initialDate),
         finalDate: inputDateString(action.payload.finalDate),
-      ***REMOVED***
+      };
     default:
       return state;
   }
-***REMOVED***
+};
 
 //authUser
 const initialStateUser = {
   user: "",
   displayName: "",
   userID: "",
-***REMOVED***
+};
 
-const initialStateEvents = {***REMOVED***
+const initialStateEvents = {};
 
 export const events = (state = initialStateEvents, action: Action): object => {
   switch (action.type) {
     case GET_EVENTS:
-      return { ...state, events: action.payload ***REMOVED***
+      return { ...state, events: action.payload };
 
     default:
       return state;
   }
-***REMOVED***
+};
 
 //-------------------------USUARIO-------------------
 
@@ -82,7 +82,7 @@ const initialStateInput = {
   password: "",
   passTwo: "",
   errorMessage: null,
-***REMOVED***
+};
 
 //Altera o state dos inputs
 export const userInputChangeHandler = (
@@ -91,18 +91,18 @@ export const userInputChangeHandler = (
 ): object => {
   switch (action.type) {
     case USER_INPUT_CHANGE_SUCCESS:
-      return { ...state, [action.payload.name]: action.payload.value ***REMOVED***
+      return { ...state, [action.payload.name]: action.payload.value };
     case USER_INPUT_CHANGE_ERROR:
-      return { ...state, errorMessage: action.payload ***REMOVED***
+      return { ...state, errorMessage: action.payload };
     case USER_INPUT_CHANGE_CLEAN:
       return {
         ...state,
         ...initialStateInput,
-      ***REMOVED***
+      };
     default:
       return state;
   }
-***REMOVED***
+};
 
 //autentica o  usuario
 export const user = (state = initialStateUser, action: Action): object => {
@@ -114,10 +114,10 @@ export const user = (state = initialStateUser, action: Action): object => {
         user: action.payload.user,
         displayName: action.payload.displayName,
         userID: action.payload.userID,
-      ***REMOVED***
+      };
     //caso nao possua usuario logado retora null para o state
     case LOGIN_USER_FAILURE:
-      return { ...state, user: action.payload ***REMOVED***
+      return { ...state, user: action.payload };
 
     case LOGOUT_USER:
       return {
@@ -125,8 +125,8 @@ export const user = (state = initialStateUser, action: Action): object => {
         user: null,
         displayName: null,
         userID: null,
-      ***REMOVED***
+      };
     default:
       return state;
   }
-***REMOVED***
+};

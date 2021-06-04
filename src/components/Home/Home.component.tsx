@@ -18,6 +18,6 @@ const Home = (props: RouteComponentProps) => {
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default Home;

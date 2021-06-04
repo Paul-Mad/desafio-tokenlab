@@ -25,7 +25,7 @@ interface AppState {
     user: object;
     displayName: string;
     userID: string;
-  ***REMOVED***
+  };
 }
 
 const App = (props: AppProps): JSX.Element => {
@@ -42,20 +42,20 @@ const App = (props: AppProps): JSX.Element => {
       </Router>
     </div>
   );
-***REMOVED***
+};
 
 const mapStateToProps = (state: AppState) => {
   return {
     user: state.user.user,
     displayName: state.user.displayName,
     userID: state.user.userID,
-  ***REMOVED***
-***REMOVED***
+  };
+};
 const mapDispatchToProps = (dispatch: Function) => {
   return {
     onUserLogout: (event: React.FormEvent<HTMLFormElement>) =>
       dispatch(setUserLogout(event)),
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -27,7 +27,7 @@ interface CadState {
     password: string;
     passTwo: string;
     errorMessage: string | null;
-  ***REMOVED***
+  };
 }
 
 const Cadastro = (props: CadProps) => {
@@ -105,7 +105,7 @@ const Cadastro = (props: CadProps) => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 //Envia o state como props para o component
 const mapStateToProps = (state: CadState) => {
@@ -115,8 +115,8 @@ const mapStateToProps = (state: CadState) => {
     password: state.userInputChangeHandler.password,
     passTwo: state.userInputChangeHandler.passTwo,
     errorMessage: state.userInputChangeHandler.errorMessage,
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 //Envia as actions como props  para o component
 const mapDispatchToProps = (dispatch: Function) => {
@@ -129,7 +129,7 @@ const mapDispatchToProps = (dispatch: Function) => {
       email: string,
       password: string
     ) => dispatch(setRegNewUser(event, displayName, email, password)),
-  ***REMOVED***
-***REMOVED***
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cadastro);

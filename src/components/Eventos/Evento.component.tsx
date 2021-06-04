@@ -11,7 +11,7 @@ interface eventProps {
     initialDate: number;
     finalDate: number;
     days: number;
-  ***REMOVED***
+  };
   onRemoveEvent: Function;
   toggleEditModal: Function;
   setEventEditId: Function;
@@ -78,6 +78,6 @@ const Evento = ({
       </div>
     </div>
   );
-***REMOVED***
+};
 
 export default Evento;

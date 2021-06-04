@@ -13,7 +13,7 @@ interface EventosProps {
     onInputChange: Function;
     onEventInputClean: Function;
     onAddEvent: Function;
-  ***REMOVED***
+  };
 }
 
 const AddEventModal = (props: EventosProps): JSX.Element => {
@@ -110,6 +110,6 @@ const AddEventModal = (props: EventosProps): JSX.Element => {
       </form>
     </div>
   );
-***REMOVED***
+};
 
 export default AddEventModal;
