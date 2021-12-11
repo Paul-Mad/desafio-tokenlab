@@ -116,7 +116,7 @@ const Eventos = (props: EventosProps): JSX.Element => {
               if (eventInput === "") {
                 alert("Digite o nome do evento");
               } else if (
-                events.find((item: any) => item.eventName === eventInput)
+                events?.find((item: any) => item.eventName === eventInput)
               ) {
                 alert(` "${eventInput}" já existe`);
               } else {
