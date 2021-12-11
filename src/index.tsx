@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import "./index.css";
+import "dotenv";
 
 import App from "./App";
 
